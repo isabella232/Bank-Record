@@ -3,6 +3,7 @@ def delete(records):
     ''' removes an entry from records '''
     entryToDel = input("Enter a name: ")
 
+    # check if entry exists
     if (entryToDel not in records):
         print(entryToDel + " does not exist")
         return
@@ -14,8 +15,10 @@ def insert(records):
     ''' inserts a new entry '''
     name = input("Owner: ")
     money = int(input("$"))
-    comments = input("Comments: ")
-    records[name] = [money, comments]
+    memo = input("Memo: ")
+
+    # create the entry and assign it to using appropriate key
+    records[name] = [money, memo]
 
 
 def merge(records):
@@ -24,25 +27,26 @@ def merge(records):
     '''
     entry1 = input("First entry to merge: ")
     entry2 = input("Second entry to merge: ")
-    mergedEntry = input("Owner: ")
-    comments = input("Comments: ")
+    mergedEntry = input("Owner of merged entry: ")
+    memos = input("Memo: ")
 
     # get the total money and remove individual entries
-    total = 0
+    total = records[entry1][0] + records[entry2][0]
     del records[entry1]
     del records[entry2]
 
     # create new merged entry
-    records[mergedEntry] = [total, comments]
+    records[mergedEntry] = [total, memos]
 
 
 def print_all(records):
 
     ''' print all entries by a given topic '''
     for entry in records:
-        print(entry)
-
-    return
+        print("Name: " + str(entry))
+        print("Amount: " + str(records[entry][0]))
+        print("memo: " + str(records[entry][1]))
+        print("\n")
 
 
 def print_menu():
@@ -64,7 +68,7 @@ def print_menu():
 
 def main():
     ''' Keeps track of a dictionary with key values as:
-        {"Name" : [money(int), comments joined (string)]}
+        {"Name" : [money(int), memos joined (string)]}
         User can choose to print entries, add or remove some, or merge them
     '''
     records = {}
@@ -76,7 +80,7 @@ def main():
 
         if (choice == 0):
             return
-        # TODO note switch stmts in cards
+
         switch = {
             1: print_all,
             2: insert,
