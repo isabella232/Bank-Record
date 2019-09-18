@@ -1,42 +1,87 @@
-def insert(name, amount, joinDate):
+
+def delete(records):
+    ''' removes an entry from records '''
+    entryToDel = input("Enter a name: ")
+
+    if (entryToDel not in records):
+        print(entryToDel + " does not exist")
+        return
+
+    del records[entryToDel]
+    
+
+def insert(records):
+    ''' inserts a new entry '''
+    name = input("Owner: ")
+    money = int(input("$"))
+    comments = input("Comments: ")
+    records[name] = [money, comments]
+
+
+def merge(records):
+    ''' merges two entries into one
+        the amounts are added together
+    '''
+    entry1 = input("First entry to merge: ")
+    entry2 = input("Second entry to merge: ")
+    mergedEntry = input("Owner: ")
+    comments = input("Comments: ")
+
+    # get the total money and remove individual entries
+    total = 0
+    del records[entry1]
+    del records[entry2]
+
+    # create new merged entry
+    records[mergedEntry] = [total, comments]
+
+
+def print_all(records):
+
+    ''' print all entries by a given topic '''
+    for entry in records:
+        print(entry)
+
     return
 
-def join():
-    return
-
-def print_all():
-    return
 
 def print_menu():
+    ''' prints available options '''
     options = [
+        'Exit',
         'Print all entries',
         'Add a new entry',
-        'Remove an entry',
-        'Join entries'
+        'Delete an entry',
+        'Merge entries'
     ]
 
     print("Please pick 1-" + str(len(options)))
-    i = 1
+    i = 0
     for option in options:
         print(str(i) + ". ", end="")
         print(option, end="\n")
         i += 1
 
-def remove():
-    return
-
 def main():
+    ''' Keeps track of a dictionary with key values as:
+        {"Name" : [money(int), comments joined (string)]}
+        User can choose to print entries, add or remove some, or merge them
+    '''
     records = {}
-    print_menu()
+
+    while (True):
+        print_menu()
     
-    choice = input("Your choice: ")
+        choice = int(input("Your choice: "))
 
-    # TODO note switch stmts in cards
-    switcher = {
-        1: print_all,
-        2: insert,
-        3: remove,
-        4: join
-    }
+        if (choice == 0):
+            return
+        # TODO note switch stmts in cards
+        switch = {
+            1: print_all,
+            2: insert,
+            3: delete,
+            4: merge
+        }
 
-    switcher[int(choice)]
+        switch[choice](records)
