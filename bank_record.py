@@ -8,6 +8,7 @@ def delete(records):
         print(entryToDel + " does not exist")
         return
 
+    # delete the entry
     del records[entryToDel]
     
 
@@ -34,7 +35,7 @@ def merge(records):
     total = records[entry1][0] + records[entry2][0]
     del records[entry1]
     del records[entry2]
-
+    
     # create new merged entry
     records[mergedEntry] = [total, memos]
 
@@ -45,12 +46,12 @@ def print_all(records):
     for entry in records:
         print("Name: " + str(entry))
         print("Amount: " + str(records[entry][0]))
-        print("memo: " + str(records[entry][1]))
+        print("memo: " + records[entry][1])
         print("\n")
 
 
 def print_menu():
-    ''' prints available options '''
+    ''' prints available options using a list '''
     options = [
         'Exit',
         'Print all entries',
@@ -60,6 +61,8 @@ def print_menu():
     ]
 
     print("Please pick 1-" + str(len(options)))
+
+    # print the options
     i = 0
     for option in options:
         print(str(i) + ". ", end="")
