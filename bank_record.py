@@ -15,7 +15,11 @@ def delete(records):
 def insert(records):
     ''' inserts a new entry '''
     name = input("Owner: ")
-    money = int(input("$"))
+    money = input("$")
+    if (not money.isdigit()):
+        print("Invalid amount: $" + money)
+        return
+    
     memo = input("Memo: ")
 
     # create the entry and assign it to using appropriate key
@@ -27,8 +31,19 @@ def merge(records):
         the amounts are added together
     '''
     entry1 = input("First entry to merge: ")
+    if (entry1 not in records):
+        print(entry1 + " not found")
+        return
+    
     entry2 = input("Second entry to merge: ")
+    if (entry2 not in records):
+        print(entry2 + " not found")
+        return
     mergedEntry = input("Owner of merged entry: ")
+    if (mergedEntry in records):
+        print(mergedEntry + " already exists")
+        return
+    
     memos = input("Memo: ")
 
     # get the total money and remove individual entries
@@ -79,7 +94,12 @@ def main():
     while (True):
         print_menu()
     
-        choice = int(input("Your choice: "))
+        choice = input("Your choice: ")
+        if (choice.isdigit() and int(choice) >= 0 and int(choice) <= 4):
+            choice = int(choice)
+        else:
+            print("Invalid choice")
+            continue
 
         if (choice == 0):
             return
